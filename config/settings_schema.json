@@ -1,99 +1,91 @@
-[
-  {
-    "name": "theme_info",
-    "theme_name": "MagFit Pro",
-    "theme_version": "1.0.0",
-    "theme_author": "Your Name",
-    "theme_documentation_url": "https://yoursite.com/docs",
-    "theme_support_url": "https://yoursite.com/support"
-  },
-  {
-    "name": "Colors",
-    "settings": [
-      {
-        "type": "header",
-        "content": "Primary Colors"
-      },
-      {
-        "type": "color",
-        "id": "colors_accent",
-        "label": "Accent Color",
-        "default": "#00D4FF"
-      },
-      {
-        "type": "color",
-        "id": "colors_text",
-        "label": "Text Color",
-        "default": "#2d2d2d"
-      },
-      {
-        "type": "color",
-        "id": "colors_background",
-        "label": "Background Color",
-        "default": "#ffffff"
+{
+  "sections": {
+    "hero_banner": {
+      "type": "hero",
+      "settings": {
+        "height": "large",
+        "subtitle": "Elevate Your Fitness Game",
+        "title": "Premium [highlight]Magnetic[/highlight] Gym Bags",
+        "description": "<p>Experience the future of gym bags with our revolutionary magnetic closure system. Built for athletes who demand excellence.</p>",
+        "button_label": "Shop Now",
+        "button_link": "shopify://collections/all",
+        "button_label_2": "Learn More",
+        "button_link_2": "shopify://pages/about",
+        "show_floating_badge": true,
+        "badge_icon": "🔥",
+        "badge_title": "Free Shipping",
+        "badge_subtitle": "On orders over $75",
+        "show_trust_badges": true,
+        "trust_badge_1": "Lifetime Warranty",
+        "trust_badge_2": "Premium Quality",
+        "trust_badge_3": "Free Returns"
       }
-    ]
-  },
-  {
-    "name": "Typography",
-    "settings": [
-      {
-        "type": "header",
-        "content": "Font"
-      },
-      {
-        "type": "font_picker",
-        "id": "type_header_font",
-        "default": "assistant_n4",
-        "label": "Heading font",
-        "info": "Font used for headings"
-      },
-      {
-        "type": "font_picker",
-        "id": "type_body_font",
-        "default": "assistant_n4",
-        "label": "Body font",
-        "info": "Font used for body text"
+    },
+    "featured_collection": {
+      "type": "featured-collection",
+      "settings": {
+        "heading": "Featured Products",
+        "subheading": "Discover our magnetic gym bags",
+        "products_to_show": 6,
+        "show_view_all": true
       }
-    ]
-  },
-  {
-    "name": "Layout",
-    "settings": [
-      {
-        "type": "range",
-        "id": "page_width",
-        "min": 1000,
-        "max": 1600,
-        "step": 100,
-        "default": 1400,
-        "unit": "px",
-        "label": "Page width"
+    },
+    "image_with_text": {
+      "type": "image-with-text",
+      "settings": {
+        "layout": "image_first",
+        "tag": "Innovation",
+        "heading": "Revolutionary Magnetic Closure",
+        "text": "<p>Our patented magnetic closure system makes accessing your essentials effortless.</p>",
+        "show_features": true,
+        "feature_1": "One-hand operation",
+        "feature_2": "Ultra-secure lock",
+        "feature_3": "Whisper-quiet",
+        "feature_4": "10,000+ cycle durability",
+        "button_label": "Learn More",
+        "button_link": "shopify://pages/about"
       }
-    ]
-  },
-  {
-    "name": "Social Media",
-    "settings": [
-      {
-        "type": "header",
-        "content": "Social accounts"
+    },
+    "multicolumn": {
+      "type": "multicolumn",
+      "blocks": {
+        "column_1": {
+          "type": "column",
+          "settings": {
+            "icon": "💪",
+            "title": "Built for Athletes",
+            "text": "<p>Designed with professional athletes in mind</p>"
+          }
+        },
+        "column_2": {
+          "type": "column",
+          "settings": {
+            "icon": "🔒",
+            "title": "Secure Storage",
+            "text": "<p>Keep your valuables safe and secure</p>"
+          }
+        },
+        "column_3": {
+          "type": "column",
+          "settings": {
+            "icon": "💎",
+            "title": "Premium Materials",
+            "text": "<p>Water-resistant and ultra-durable</p>"
+          }
+        }
       },
-      {
-        "type": "text",
-        "id": "social_facebook_link",
-        "label": "Facebook URL"
-      },
-      {
-        "type": "text",
-        "id": "social_instagram_link",
-        "label": "Instagram URL"
-      },
-      {
-        "type": "text",
-        "id": "social_twitter_link",
-        "label": "Twitter URL"
+      "block_order": ["column_1", "column_2", "column_3"],
+      "settings": {
+        "title": "Why Choose MagFit",
+        "subtitle": "Discover what makes us different",
+        "columns_desktop": 3
       }
-    ]
-  }
-]
+    }
+  },
+  "order": [
+    "hero_banner",
+    "featured_collection",
+    "image_with_text",
+    "multicolumn"
+  ]
+}

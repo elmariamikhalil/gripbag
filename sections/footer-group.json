@@ -1,0 +1,17 @@
+{
+  "name": "Footer",
+  "type": "footer",
+  "sections": {
+    "footer": {
+      "type": "footer",
+      "settings": {
+        "heading_1": "MagFit Pro",
+        "text_1": "Premium magnetic gym bags designed for athletes.",
+        "heading_2": "Shop",
+        "heading_3": "Support",
+        "heading_4": "Newsletter"
+      }
+    }
+  },
+  "order": ["footer"]
+}

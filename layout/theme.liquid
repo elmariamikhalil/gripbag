@@ -49,15 +49,21 @@
         --font-body-family: {{ settings.type_body_font.family }}, {{ settings.type_body_font.fallback_families }};
         --font-body-style: {{ settings.type_body_font.style }};
         --font-body-weight: {{ settings.type_body_font.weight }};
+        --font-body-scale: 1;
         
         --font-heading-family: {{ settings.type_header_font.family }}, {{ settings.type_header_font.fallback_families }};
         --font-heading-style: {{ settings.type_header_font.style }};
         --font-heading-weight: {{ settings.type_header_font.weight }};
 
-        --color-primary: {{ settings.colors_accent }};
-        --color-primary-hover: {{ settings.colors_accent | color_darken: 10 }};
-        --color-text: {{ settings.colors_text }};
-        --color-background: {{ settings.colors_background }};
+        --color-primary: {{ settings.colors_accent | default: '#00D4FF' }};
+        --color-primary-hover: {{ settings.colors_accent | default: '#00D4FF' | color_darken: 10 }};
+        --color-text: {{ settings.colors_text | default: '#2d2d2d' }};
+        --color-background: {{ settings.colors_background | default: '#ffffff' }};
+        --color-dark: #1a1a1a;
+        --color-light-bg: #f9fafb;
+        --color-gray: #6b7280;
+        --border-radius: 12px;
+        --transition: all 0.3s ease;
       }
 
       *,
@@ -84,11 +90,48 @@
         font-family: var(--font-body-family);
         font-style: var(--font-body-style);
         font-weight: var(--font-body-weight);
+        background: var(--color-background);
+        color: var(--color-text);
       }
 
       @media screen and (min-width: 750px) {
         body {
           font-size: 1.6rem;
+        }
+      }
+
+      /* Section utility classes */
+      .section-heading {
+        font-size: clamp(2rem, 5vw, 3rem);
+        font-weight: 800;
+        margin-bottom: 15px;
+        color: var(--color-dark);
+        line-height: 1.2;
+      }
+
+      .section-subheading {
+        font-size: 18px;
+        color: var(--color-gray);
+        line-height: 1.6;
+        max-width: 700px;
+        margin: 0 auto;
+      }
+
+      /* Product Grid */
+      .product-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 30px;
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 0 40px;
+      }
+
+      @media (max-width: 768px) {
+        .product-grid {
+          grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+          gap: 20px;
+          padding: 0 20px;
         }
       }
     {% endstyle %}
@@ -107,7 +150,7 @@
 
   <body class="template-{{ template.name }}">
     <a class="skip-to-content btn btn--primary" href="#MainContent">
-      {{ 'accessibility.skip_to_text' | t }}
+      Skip to content
     </a>
 
     {% sections 'header-group' %}
@@ -118,8 +161,11 @@
 
     {% sections 'footer-group' %}
 
+    <!-- Cart Drawer -->
+    {% render 'cart-drawer' %}
+
     <ul hidden>
-      <li id="a11y-refresh-page-message">{{ 'accessibility.refresh_page' | t }}</li>
+      <li id="a11y-refresh-page-message">Choosing a selection results in a full page refresh.</li>
     </ul>
 
     <script>
@@ -132,15 +178,141 @@
       };
 
       window.cartStrings = {
-        error: `{{ 'sections.cart.cart_error' | t }}`,
-        quantityError: `{{ 'sections.cart.cart_quantity_error_html' | t: quantity: '[quantity]' }}`
+        error: 'There was an error while updating your cart. Please try again.',
+        quantityError: 'You can only add [quantity] of this item to your cart.'
       }
 
       window.variantStrings = {
-        addToCart: `{{ 'products.product.add_to_cart' | t }}`,
-        soldOut: `{{ 'products.product.sold_out' | t }}`,
-        unavailable: `{{ 'products.product.unavailable' | t }}`
+        addToCart: 'Add to cart',
+        soldOut: 'Sold out',
+        unavailable: 'Unavailable'
       }
+
+      // Cart drawer functionality
+      document.addEventListener('DOMContentLoaded', function() {
+        const cartTriggers = document.querySelectorAll('[data-cart-trigger]');
+        const cartDrawer = document.getElementById('cart-drawer');
+        const overlay = cartDrawer?.querySelector('.cart-drawer__overlay');
+        const closeBtn = cartDrawer?.querySelector('.cart-drawer__close');
+        
+        // Open cart drawer
+        cartTriggers.forEach(trigger => {
+          trigger.addEventListener('click', (e) => {
+            e.preventDefault();
+            if (cartDrawer) {
+              cartDrawer.classList.add('active');
+              document.body.style.overflow = 'hidden';
+            }
+          });
+        });
+        
+        // Close cart drawer
+        function closeCart() {
+          if (cartDrawer) {
+            cartDrawer.classList.remove('active');
+            document.body.style.overflow = '';
+          }
+        }
+
+        if (overlay) {
+          overlay.addEventListener('click', closeCart);
+        }
+        
+        if (closeBtn) {
+          closeBtn.addEventListener('click', closeCart);
+        }
+
+        // Update cart item quantity
+        window.updateCartItem = function(input) {
+          const line = input.dataset.line;
+          const quantity = parseInt(input.value);
+          
+          if (quantity < 1) {
+            if (confirm('Remove this item from cart?')) {
+              input.value = 0;
+            } else {
+              input.value = 1;
+              return;
+            }
+          }
+
+          fetch('/cart/change.js', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              line: line,
+              quantity: quantity
+            })
+          })
+          .then(response => response.json())
+          .then(data => {
+            location.reload(); // Reload to update cart
+          })
+          .catch(error => {
+            console.error('Error:', error);
+            alert('Error updating cart. Please try again.');
+          });
+        };
+
+        // Add to cart functionality
+        const addToCartForms = document.querySelectorAll('form[action="/cart/add"]');
+        addToCartForms.forEach(form => {
+          form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const formData = new FormData(form);
+            const button = form.querySelector('button[type="submit"]');
+            const originalText = button.textContent;
+            
+            button.disabled = true;
+            button.textContent = 'Adding...';
+            
+            try {
+              const response = await fetch('/cart/add.js', {
+                method: 'POST',
+                body: formData
+              });
+              
+              const data = await response.json();
+              
+              if (response.ok) {
+                // Update cart count
+                const cartCount = document.querySelectorAll('.cart-count');
+                cartCount.forEach(el => {
+                  const currentCount = parseInt(el.textContent) || 0;
+                  el.textContent = currentCount + parseInt(formData.get('quantity') || 1);
+                });
+                
+                // Open cart drawer
+                if (cartDrawer) {
+                  cartDrawer.classList.add('active');
+                  document.body.style.overflow = 'hidden';
+                  
+                  // Reload cart drawer content
+                  setTimeout(() => {
+                    location.reload();
+                  }, 500);
+                }
+                
+                button.textContent = 'Added!';
+                setTimeout(() => {
+                  button.textContent = originalText;
+                  button.disabled = false;
+                }, 1000);
+              } else {
+                throw new Error(data.description || 'Error adding to cart');
+              }
+            } catch (error) {
+              console.error('Error:', error);
+              alert(error.message || 'Error adding item to cart');
+              button.textContent = originalText;
+              button.disabled = false;
+            }
+          });
+        });
+      });
     </script>
 
     {%- if settings.predictive_search_enabled -%}
