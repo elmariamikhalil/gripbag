@@ -1,14 +1,10 @@
 {
   "current": {
-    "colors_accent": "#00D4FF",
-    "colors_text": "#2d2d2d",
-    "colors_background": "#ffffff",
-    "type_header_font": "assistant_n4",
-    "type_body_font": "assistant_n4",
-    "page_width": 1400,
-    "social_facebook_link": "",
-    "social_instagram_link": "",
-    "social_twitter_link": "",
+    "colors_accent": "#556B2F",
+    "colors_text": "#1a1a1a",
+    "colors_background": "#F5F5F0",
+    "type_header_font": "poppins_n6",
+    "type_body_font": "poppins_n4",
     "sections": {
       "header": {
         "type": "header",
@@ -16,15 +12,8 @@
       },
       "footer": {
         "type": "footer",
-        "settings": {
-          "heading_1": "MagFit Pro",
-          "text_1": "Premium magnetic gym bags designed for athletes who demand excellence.",
-          "heading_2": "Shop",
-          "heading_3": "Support",
-          "heading_4": "Newsletter"
-        }
+        "settings": {}
       }
-    },
-    "content_for_index": []
+    }
   }
 }
