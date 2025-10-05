@@ -1,431 +1,136 @@
 {{ 'section-hero.css' | asset_url | stylesheet_tag }}
 
-<div class="hero-banner hero-banner--{{ section.settings.height }}" style="--hero-overlay-opacity: {{ section.settings.overlay_opacity | divided_by: 100.0 }};">
-  <div class="hero-banner__container container">
-    <div class="hero-banner__grid">
-      {%- assign content_position = section.settings.desktop_content_position -%}
+<div class="hero-banner hero-banner--{{ section.settings.height }}" style="background: {{ section.settings.background_color }}; position: relative; overflow: hidden;">
+  <div class="hero-banner__container container" style="max-width: 1400px; margin: 0 auto; padding: 80px 40px;">
+    <div class="hero-banner__grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;">
       
-      <div class="hero-banner__content hero-banner__content--{{ content_position }} {{ section.settings.desktop_content_alignment }} fade-in">
+      <!-- Left Content -->
+      <div class="hero-banner__content">
         {%- if section.settings.subtitle != blank -%}
-          <p class="hero-banner__subtitle">
+          <p class="hero-banner__subtitle" style="font-size: 18px; color: #6b7280; margin-bottom: 10px; font-weight: 500;">
             {{ section.settings.subtitle }}
           </p>
         {%- endif -%}
 
         {%- if section.settings.title != blank -%}
-          <h1 class="hero-banner__title">
-            {{ section.settings.title | replace: '[highlight]', '<span class="text-highlight">' | replace: '[/highlight]', '</span>' }}
+          <h1 class="hero-banner__title" style="font-size: clamp(48px, 8vw, 72px); font-weight: 900; color: #00D4FF; margin-bottom: 20px; line-height: 1.1;">
+            {{ section.settings.title }}
           </h1>
         {%- endif -%}
 
         {%- if section.settings.description != blank -%}
-          <div class="hero-banner__description rte">
+          <div class="hero-banner__description" style="font-size: 16px; line-height: 1.8; color: #6b7280; margin-bottom: 30px; max-width: 500px;">
             {{ section.settings.description }}
           </div>
         {%- endif -%}
 
-        {%- if section.settings.button_label != blank or section.settings.button_label_2 != blank -%}
-          <div class="hero-banner__buttons">
-            {%- if section.settings.button_label != blank -%}
-              <a href="{{ section.settings.button_link }}" class="btn btn--primary btn--large">
-                {{ section.settings.button_label | escape }}
-              </a>
-            {%- endif -%}
+        {%- if section.settings.button_label != blank -%}
+          <div style="display: flex; align-items: center; gap: 20px; flex-wrap: wrap;">
+            <a href="{{ section.settings.button_link }}" 
+               class="btn btn--primary"
+               style="display: inline-block; padding: 18px 40px; background: #00D4FF; color: white; border-radius: 50px; font-weight: 700; text-decoration: none; transition: all 0.3s;">
+              {{ section.settings.button_label }}
+            </a>
             
-            {%- if section.settings.button_label_2 != blank -%}
-              <a href="{{ section.settings.button_link_2 }}" class="btn btn--secondary btn--large">
-                {{ section.settings.button_label_2 | escape }}
-              </a>
+            {%- if section.settings.show_price -%}
+              <div style="display: flex; align-items: center; gap: 10px;">
+                <span style="font-size: 14px; color: #6b7280;">{{ section.settings.price_text }}</span>
+                <span style="font-size: 24px; font-weight: 800; color: #1a1a1a;">{{ section.settings.price }}</span>
+              </div>
             {%- endif -%}
-          </div>
-        {%- endif -%}
-
-        {%- if section.settings.show_trust_badges -%}
-          <div class="hero-banner__trust-badges">
-            <div class="trust-badge">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
-              </svg>
-              <span>{{ section.settings.trust_badge_1 }}</span>
-            </div>
-            <div class="trust-badge">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <polyline points="20 6 9 17 4 12"></polyline>
-              </svg>
-              <span>{{ section.settings.trust_badge_2 }}</span>
-            </div>
-            <div class="trust-badge">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
-                <circle cx="12" cy="10" r="3"></circle>
-              </svg>
-              <span>{{ section.settings.trust_badge_3 }}</span>
-            </div>
           </div>
         {%- endif -%}
       </div>
 
-      <div class="hero-banner__media">
-        <div class="hero-banner__media-wrapper">
+      <!-- Right Image -->
+      <div class="hero-banner__media" style="position: relative;">
+        <div class="hero-banner__media-wrapper" style="position: relative; background: linear-gradient(135deg, rgba(0, 212, 255, 0.1), rgba(0, 184, 230, 0.1)); border-radius: 200px 200px 0 0; padding: 60px; text-align: center;">
           {%- if section.settings.image != blank -%}
-            <img
-              srcset="{%- if section.settings.image.width >= 375 -%}{{ section.settings.image | img_url: '375x' }} 375w,{%- endif -%}
-                {%- if section.settings.image.width >= 750 -%}{{ section.settings.image | img_url: '750x' }} 750w,{%- endif -%}
-                {%- if section.settings.image.width >= 1100 -%}{{ section.settings.image | img_url: '1100x' }} 1100w,{%- endif -%}
-                {%- if section.settings.image.width >= 1500 -%}{{ section.settings.image | img_url: '1500x' }} 1500w,{%- endif -%}
-                {%- if section.settings.image.width >= 2000 -%}{{ section.settings.image | img_url: '2000x' }} 2000w,{%- endif -%}
-                {{ section.settings.image | img_url: 'master' }} {{ section.settings.image.width }}w"
-              src="{{ section.settings.image | img_url: '1500x' }}"
-              sizes="(min-width: 1100px) 1100px, (min-width: 750px) calc(100vw - 10rem), 100vw"
-              alt="{{ section.settings.image.alt | escape }}"
-              loading="eager"
-              width="{{ section.settings.image.width }}"
-              height="{{ section.settings.image.height }}"
-            >
+            <img src="{{ section.settings.image | img_url: '800x' }}" 
+                 alt="{{ section.settings.title }}" 
+                 style="max-width: 100%; height: auto; margin: 0 auto;">
           {%- else -%}
             {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
           {%- endif -%}
-
-          {%- if section.settings.show_floating_badge -%}
-            <div class="hero-banner__floating-badge">
-              <div class="floating-badge">
-                <span class="floating-badge__icon">{{ section.settings.badge_icon }}</span>
-                <div class="floating-badge__content">
-                  <strong>{{ section.settings.badge_title }}</strong>
-                  <small>{{ section.settings.badge_subtitle }}</small>
-                </div>
-              </div>
-            </div>
-          {%- endif -%}
         </div>
-
-        <div class="hero-banner__blob hero-banner__blob--1"></div>
-        <div class="hero-banner__blob hero-banner__blob--2"></div>
+        
+        <!-- Decorative circles -->
+        <div style="position: absolute; top: -50px; right: -50px; width: 300px; height: 300px; background: rgba(0, 212, 255, 0.1); border-radius: 50%; z-index: -1;"></div>
       </div>
     </div>
   </div>
 </div>
 
 <style>
-  .hero-banner {
-    position: relative;
-    padding: 80px 0;
-    overflow: hidden;
-    background: {{ section.settings.background_color }};
-  }
+.hero-banner {
+  position: relative;
+  padding: 80px 0;
+}
 
-  .hero-banner--small { padding: 60px 0; }
-  .hero-banner--medium { padding: 100px 0; }
-  .hero-banner--large { padding: 140px 0; }
+.btn--primary:hover {
+  background: #00B8E6 !important;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(0, 212, 255, 0.3);
+}
 
+@media (max-width: 968px) {
   .hero-banner__grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 80px;
-    align-items: center;
-    position: relative;
-    z-index: 2;
+    grid-template-columns: 1fr !important;
+    gap: 40px !important;
   }
-
-  .hero-banner__content {
-    max-width: 600px;
-  }
-
-  .hero-banner__content--left {
-    justify-self: start;
-  }
-
-  .hero-banner__content--center {
-    justify-self: center;
-    text-align: center;
-    max-width: 800px;
-  }
-
-  .hero-banner__content--right {
-    justify-self: end;
-  }
-
-  .hero-banner__subtitle {
-    display: inline-block;
-    padding: 8px 20px;
-    margin-bottom: 20px;
-    font-size: 0.875rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: var(--color-primary);
-    background: rgba(0, 212, 255, 0.1);
-    border-radius: var(--radius-full);
-  }
-
-  .hero-banner__title {
-    font-size: clamp(2.5rem, 6vw, 4.5rem);
-    font-weight: 900;
-    line-height: 1.1;
-    margin-bottom: 24px;
-    letter-spacing: -0.02em;
-  }
-
-  .text-highlight {
-    color: var(--color-primary);
-    position: relative;
-  }
-
-  .hero-banner__description {
-    font-size: 1.125rem;
-    line-height: 1.7;
-    color: var(--color-text-muted);
-    margin-bottom: 40px;
-  }
-
-  .hero-banner__buttons {
-    display: flex;
-    gap: 16px;
-    flex-wrap: wrap;
-  }
-
-  .hero-banner__trust-badges {
-    display: flex;
-    gap: 24px;
-    margin-top: 40px;
-    flex-wrap: wrap;
-  }
-
-  .trust-badge {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 0.875rem;
-    color: var(--color-text-muted);
-  }
-
-  .trust-badge svg {
-    color: var(--color-primary);
-    flex-shrink: 0;
-  }
-
+  
   .hero-banner__media {
-    position: relative;
+    order: -1;
   }
-
-  .hero-banner__media-wrapper {
-    position: relative;
-    border-radius: var(--radius-xl);
-    overflow: hidden;
-    background: linear-gradient(135deg, rgba(0, 212, 255, 0.05), rgba(0, 153, 255, 0.05));
-    padding: 40px;
-    box-shadow: var(--shadow-2xl);
+  
+  .hero-banner__content {
+    text-align: center;
   }
-
-  .hero-banner__media-wrapper img {
-    width: 100%;
-    height: auto;
-    border-radius: var(--radius-lg);
+  
+  .hero-banner__description {
+    margin-left: auto !important;
+    margin-right: auto !important;
   }
-
-  .hero-banner__floating-badge {
-    position: absolute;
-    bottom: 30px;
-    left: 30px;
-    animation: floatBadge 3s ease-in-out infinite;
-  }
-
-  .floating-badge {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 16px 24px;
-    background: white;
-    border-radius: var(--radius-md);
-    box-shadow: var(--shadow-xl);
-  }
-
-  .floating-badge__icon {
-    font-size: 2rem;
-  }
-
-  .floating-badge__content strong {
-    display: block;
-    font-size: 0.875rem;
-    font-weight: 700;
-    color: var(--color-dark);
-  }
-
-  .floating-badge__content small {
-    display: block;
-    font-size: 0.75rem;
-    color: var(--color-text-muted);
-  }
-
-  .hero-banner__blob {
-    position: absolute;
-    width: 400px;
-    height: 400px;
-    background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
-    border-radius: 50%;
-    filter: blur(80px);
-    opacity: 0.15;
-    z-index: 1;
-    pointer-events: none;
-  }
-
-  .hero-banner__blob--1 {
-    top: -100px;
-    right: -100px;
-  }
-
-  .hero-banner__blob--2 {
-    bottom: -100px;
-    left: -100px;
-  }
-
-  @keyframes floatBadge {
-    0%, 100% { transform: translateY(0px); }
-    50% { transform: translateY(-10px); }
-  }
-
-  @media (max-width: 1024px) {
-    .hero-banner__grid {
-      gap: 60px;
-    }
-  }
-
-  @media (max-width: 768px) {
-    .hero-banner {
-      padding: 60px 0;
-    }
-
-    .hero-banner__grid {
-      grid-template-columns: 1fr;
-      gap: 40px;
-    }
-
-    .hero-banner__content {
-      max-width: 100%;
-      order: 2;
-    }
-
-    .hero-banner__media {
-      order: 1;
-    }
-
-    .hero-banner__media-wrapper {
-      padding: 20px;
-    }
-
-    .hero-banner__buttons {
-      flex-direction: column;
-    }
-
-    .hero-banner__buttons .btn {
-      width: 100%;
-    }
-
-    .hero-banner__trust-badges {
-      flex-direction: column;
-      gap: 16px;
-    }
-  }
+}
 </style>
 
 {% schema %}
 {
   "name": "Hero Banner",
-  "tag": "section",
-  "class": "section-hero",
   "settings": [
     {
       "type": "select",
       "id": "height",
       "label": "Section height",
       "options": [
-        {
-          "value": "small",
-          "label": "Small"
-        },
-        {
-          "value": "medium",
-          "label": "Medium"
-        },
-        {
-          "value": "large",
-          "label": "Large"
-        }
+        {"value": "small", "label": "Small"},
+        {"value": "medium", "label": "Medium"},
+        {"value": "large", "label": "Large"}
       ],
-      "default": "medium"
+      "default": "large"
     },
     {
       "type": "color",
       "id": "background_color",
       "label": "Background color",
-      "default": "#ffffff"
-    },
-    {
-      "type": "header",
-      "content": "Content"
+      "default": "#f0f9ff"
     },
     {
       "type": "text",
       "id": "subtitle",
       "label": "Subtitle",
-      "default": "Elevate Your Fitness Game"
+      "default": "Elevate Your Senses with Our"
     },
     {
-      "type": "textarea",
+      "type": "text",
       "id": "title",
       "label": "Heading",
-      "default": "Premium [highlight]Magnetic[/highlight] Gym Bags",
-      "info": "Use [highlight] and [/highlight] to highlight text"
+      "default": "Perfumes"
     },
     {
       "type": "richtext",
       "id": "description",
-      "label": "Description",
-      "default": "<p>Experience the future of gym bags with our revolutionary magnetic closure system. Built for athletes who demand excellence.</p>"
-    },
-    {
-      "type": "select",
-      "id": "desktop_content_position",
-      "label": "Desktop content position",
-      "options": [
-        {
-          "value": "left",
-          "label": "Left"
-        },
-        {
-          "value": "center",
-          "label": "Center"
-        },
-        {
-          "value": "right",
-          "label": "Right"
-        }
-      ],
-      "default": "left"
-    },
-    {
-      "type": "select",
-      "id": "desktop_content_alignment",
-      "label": "Desktop content alignment",
-      "options": [
-        {
-          "value": "text-left",
-          "label": "Left"
-        },
-        {
-          "value": "text-center",
-          "label": "Center"
-        },
-        {
-          "value": "text-right",
-          "label": "Right"
-        }
-      ],
-      "default": "text-left"
-    },
-    {
-      "type": "header",
-      "content": "Buttons"
+      "label": "Description"
     },
     {
       "type": "text",
@@ -439,80 +144,27 @@
       "label": "Button link"
     },
     {
+      "type": "checkbox",
+      "id": "show_price",
+      "label": "Show price",
+      "default": true
+    },
+    {
       "type": "text",
-      "id": "button_label_2",
-      "label": "Second button label",
-      "default": "Learn More"
+      "id": "price_text",
+      "label": "Price label",
+      "default": "Starting from"
     },
     {
-      "type": "url",
-      "id": "button_link_2",
-      "label": "Second button link"
-    },
-    {
-      "type": "header",
-      "content": "Image"
+      "type": "text",
+      "id": "price",
+      "label": "Price",
+      "default": "$45.00"
     },
     {
       "type": "image_picker",
       "id": "image",
       "label": "Image"
-    },
-    {
-      "type": "header",
-      "content": "Floating Badge"
-    },
-    {
-      "type": "checkbox",
-      "id": "show_floating_badge",
-      "label": "Show floating badge",
-      "default": true
-    },
-    {
-      "type": "text",
-      "id": "badge_icon",
-      "label": "Badge icon (emoji)",
-      "default": "🔥"
-    },
-    {
-      "type": "text",
-      "id": "badge_title",
-      "label": "Badge title",
-      "default": "Free Shipping"
-    },
-    {
-      "type": "text",
-      "id": "badge_subtitle",
-      "label": "Badge subtitle",
-      "default": "On orders over $75"
-    },
-    {
-      "type": "header",
-      "content": "Trust Badges"
-    },
-    {
-      "type": "checkbox",
-      "id": "show_trust_badges",
-      "label": "Show trust badges",
-      "default": true
-    },
-    {
-      "type": "text",
-      "id": "trust_badge_1",
-      "label": "Trust badge 1",
-      "default": "Lifetime Warranty"
-    },
-    {
-      "type": "text",
-      "id": "trust_badge_2",
-      "label": "Trust badge 2",
-      "default": "Premium Quality"
-    },
-    {
-      "type": "text",
-      "id": "trust_badge_3",
-      "label": "Trust badge 3",
-      "default": "Free Returns"
     }
   ],
   "presets": [

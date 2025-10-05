@@ -1,0 +1,80 @@
+<section class="newsletter-section" style="background: {{ section.settings.background_color }}; padding: 80px 20px;">
+  <div class="container" style="max-width: 1200px; margin: 0 auto;">
+    <div class="newsletter-content" style="text-align: center; max-width: 800px; margin: 0 auto;">
+      {% if section.settings.heading != blank %}
+        <h2 style="font-size: clamp(32px, 5vw, 48px); font-weight: 800; margin-bottom: 15px;">
+          {{ section.settings.heading }}
+        </h2>
+      {% endif %}
+      
+      {% if section.settings.subheading != blank %}
+        <p style="font-size: 18px; color: #6b7280; margin-bottom: 40px;">
+          {{ section.settings.subheading }}
+        </p>
+      {% endif %}
+
+      <form action="/contact#newsletter" method="post" class="newsletter-form" style="display: flex; gap: 15px; max-width: 600px; margin: 0 auto; flex-wrap: wrap;">
+        <input type="email" 
+               name="contact[email]" 
+               placeholder="Your email address" 
+               required
+               style="flex: 1; min-width: 250px; padding: 18px 24px; border: 2px solid #e5e7eb; border-radius: 50px; font-size: 16px; background: white;">
+        <button type="submit" 
+                class="btn btn--primary"
+                style="padding: 18px 40px; background: #1a1a1a; color: white; border: none; border-radius: 50px; font-weight: 700; cursor: pointer; transition: all 0.3s;">
+          Subscribe
+        </button>
+      </form>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Newsletter",
+  "settings": [
+    {
+      "type": "html",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Get Discount <span style='color: #00D4FF'>20%</span> off"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "for the first transaction"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background Color",
+      "default": "#f0f9ff"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Newsletter"
+    }
+  ]
+}
+{% endschema %}
+
+<style>
+.newsletter-form button:hover {
+  background: #00D4FF !important;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(0, 212, 255, 0.3);
+}
+
+@media (max-width: 640px) {
+  .newsletter-form {
+    flex-direction: column !important;
+  }
+  
+  .newsletter-form input,
+  .newsletter-form button {
+    width: 100% !important;
+  }
+}
+</style>
