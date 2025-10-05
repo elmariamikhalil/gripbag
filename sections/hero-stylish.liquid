@@ -1,0 +1,805 @@
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.hero-stylish-wrapper {
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #E8E8DC 0%, #F5F5E8 50%, #E8E8DC 100%);
+  min-height: 100vh;
+  position: relative;
+  overflow: hidden;
+  padding: 0;
+}
+
+/* Header */
+.stylish-header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  padding: 25px 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 100;
+  background: transparent;
+}
+
+.stylish-logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+}
+
+.logo-icon {
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(135deg, #7B2D89 0%, #9B4DA8 100%);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+}
+
+.logo-text {
+  font-size: 28px;
+  font-weight: 800;
+  color: #1a1a1a;
+  letter-spacing: -0.5px;
+}
+
+.stylish-nav {
+  display: flex;
+  gap: 50px;
+  list-style: none;
+}
+
+.stylish-nav a {
+  text-decoration: none;
+  color: #1a1a1a;
+  font-size: 16px;
+  font-weight: 500;
+  position: relative;
+  transition: all 0.3s;
+}
+
+.stylish-nav a.active {
+  color: #7B2D89;
+  font-weight: 600;
+}
+
+.stylish-nav a.active::after {
+  content: '';
+  position: absolute;
+  bottom: -6px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 6px;
+  height: 6px;
+  background: #7B2D89;
+  border-radius: 50%;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+}
+
+.header-icon {
+  background: none;
+  border: none;
+  font-size: 22px;
+  color: #1a1a1a;
+  cursor: pointer;
+  transition: all 0.3s;
+  padding: 5px;
+}
+
+.header-icon:hover {
+  color: #7B2D89;
+  transform: scale(1.1);
+}
+
+/* Main Content Container */
+.hero-main {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  position: relative;
+  padding: 120px 60px 60px 60px;
+}
+
+/* Left Side Navigation */
+.side-nav-left {
+  position: absolute;
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  z-index: 10;
+}
+
+.side-nav-left a {
+  color: #1a1a1a;
+  font-size: 18px;
+  transition: all 0.3s;
+  text-decoration: none;
+}
+
+.side-nav-left a:hover {
+  color: #7B2D89;
+  transform: translateX(-3px);
+}
+
+/* Vertical Side Text */
+.vertical-text {
+  position: absolute;
+  left: 85px;
+  top: 50%;
+  transform: translateY(-50%) rotate(180deg);
+  writing-mode: vertical-rl;
+  display: flex;
+  flex-direction: column;
+  gap: 70px;
+  font-size: 14px;
+  font-weight: 400;
+  color: #999;
+  letter-spacing: 1px;
+}
+
+.vertical-text span {
+  cursor: pointer;
+  transition: all 0.3s;
+  text-transform: capitalize;
+}
+
+.vertical-text span:hover {
+  color: #1a1a1a;
+  font-weight: 500;
+}
+
+/* Content Grid */
+.content-grid {
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 100px;
+  align-items: center;
+  padding: 0 80px;
+}
+
+/* Left Content */
+.hero-content {
+  padding-left: 60px;
+}
+
+.trending-tag {
+  font-size: 16px;
+  font-weight: 600;
+  color: #7B2D89;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 25px;
+  display: inline-block;
+}
+
+.hero-main-title {
+  font-size: 72px;
+  font-weight: 900;
+  line-height: 0.95;
+  color: #1a1a1a;
+  margin-bottom: 0;
+  letter-spacing: -3px;
+  text-transform: capitalize;
+}
+
+.hero-main-title .highlight {
+  display: block;
+  color: #1a1a1a;
+}
+
+.hero-main-title .bags-text {
+  display: block;
+  color: #1a1a1a;
+  font-weight: 900;
+}
+
+.collection-year {
+  font-size: 72px;
+  font-weight: 900;
+  color: #1a1a1a;
+  margin-bottom: 35px;
+  letter-spacing: -3px;
+  line-height: 0.95;
+}
+
+.hero-description {
+  font-size: 15px;
+  line-height: 1.8;
+  color: #666;
+  margin-bottom: 35px;
+  max-width: 480px;
+  font-weight: 400;
+}
+
+.price-section {
+  margin-bottom: 35px;
+}
+
+.price-label {
+  font-size: 19px;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-bottom: 10px;
+}
+
+/* Color Selection */
+.colors-section {
+  margin-bottom: 45px;
+}
+
+.colors-label {
+  font-size: 17px;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-bottom: 20px;
+}
+
+.color-options {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.color-radio {
+  position: relative;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.color-radio input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.color-circle {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  transition: all 0.3s;
+  cursor: pointer;
+  position: relative;
+}
+
+.color-radio input[type="radio"]:checked + .color-circle {
+  border-color: #1a1a1a;
+  transform: scale(1.1);
+}
+
+.color-radio input[type="radio"]:checked + .color-circle::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 10px;
+  height: 10px;
+  background: #1a1a1a;
+  border-radius: 50%;
+}
+
+.color-circle.army-green {
+  background: #1a1a1a;
+}
+
+.color-circle.white {
+  background: #FFFFFF;
+  border: 2px solid #ddd;
+}
+
+.color-circle.red {
+  background: #C41E3A;
+}
+
+.color-label {
+  font-size: 15px;
+  color: #1a1a1a;
+  font-weight: 500;
+  margin-right: 25px;
+}
+
+/* CTA Button */
+.hero-cta-button {
+  display: inline-block;
+  padding: 20px 55px;
+  background: linear-gradient(135deg, #7B2D89 0%, #9B4DA8 100%);
+  color: white;
+  font-size: 17px;
+  font-weight: 700;
+  border-radius: 50px;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s;
+  box-shadow: 0 15px 35px rgba(123, 45, 137, 0.35);
+  text-transform: capitalize;
+}
+
+.hero-cta-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 20px 45px rgba(123, 45, 137, 0.45);
+  background: linear-gradient(135deg, #6B1D79 0%, #8B3D98 100%);
+}
+
+/* Right Side - Image */
+.hero-image-side {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 700px;
+}
+
+/* Large Background Circle */
+.image-bg-circle {
+  position: absolute;
+  width: 580px;
+  height: 580px;
+  background: #E8E8E0;
+  border-radius: 50%;
+  z-index: 1;
+  transition: all 0.5s ease;
+}
+
+.image-bg-circle.color-army-green {
+  background: #E8E8E0;
+}
+
+.image-bg-circle.color-white {
+  background: #F0F0E8;
+}
+
+.image-bg-circle.color-red {
+  background: #E8E8E0;
+}
+
+/* Accent Circle */
+.accent-circle {
+  position: absolute;
+  top: 15%;
+  right: 10%;
+  width: 250px;
+  height: 250px;
+  background: linear-gradient(135deg, rgba(123, 45, 137, 0.08) 0%, rgba(155, 77, 168, 0.05) 100%);
+  border-radius: 50%;
+  z-index: 0;
+}
+
+/* Product Image */
+.product-image-main {
+  position: relative;
+  z-index: 2;
+  max-width: 480px;
+  height: auto;
+  filter: drop-shadow(0 25px 50px rgba(0, 0, 0, 0.15));
+  transition: all 0.5s ease;
+}
+
+/* Small Preview Image */
+.preview-mini {
+  position: absolute;
+  top: 18%;
+  right: 5%;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 6px solid white;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+  z-index: 3;
+  background: white;
+}
+
+.preview-mini img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Right Side Vertical Text */
+.vertical-text-right {
+  position: absolute;
+  right: -60px;
+  top: 50%;
+  transform: translateY(-50%);
+  writing-mode: vertical-rl;
+  font-size: 120px;
+  font-weight: 900;
+  color: rgba(0, 0, 0, 0.03);
+  letter-spacing: -5px;
+  pointer-events: none;
+}
+
+/* Navigation Arrows */
+.nav-arrows {
+  position: absolute;
+  right: 50px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  z-index: 10;
+}
+
+.arrow-btn {
+  width: 55px;
+  height: 55px;
+  background: #2D2D2D;
+  border: none;
+  border-radius: 50%;
+  color: white;
+  font-size: 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+.arrow-btn:hover {
+  background: #7B2D89;
+  transform: scale(1.08);
+}
+
+/* Badge Element */
+.stylish-badge {
+  position: absolute;
+  top: 25%;
+  right: 15%;
+  background: white;
+  padding: 15px 20px;
+  border-radius: 16px;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+  z-index: 4;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.badge-number {
+  font-size: 42px;
+  font-weight: 900;
+  color: #7B2D89;
+  line-height: 1;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+}
+
+.badge-text {
+  font-size: 13px;
+  font-weight: 600;
+  color: #666;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+}
+
+/* Responsive */
+@media (max-width: 1200px) {
+  .content-grid {
+    gap: 60px;
+    padding: 0 40px;
+  }
+  
+  .hero-main-title,
+  .collection-year {
+    font-size: 56px;
+  }
+  
+  .vertical-text {
+    display: none;
+  }
+}
+
+@media (max-width: 968px) {
+  .stylish-header {
+    padding: 20px 30px;
+  }
+  
+  .content-grid {
+    grid-template-columns: 1fr;
+    gap: 60px;
+    padding: 0 20px;
+  }
+  
+  .hero-content {
+    padding-left: 0;
+    order: 2;
+  }
+  
+  .hero-image-side {
+    order: 1;
+    height: 500px;
+  }
+  
+  .side-nav-left {
+    display: none;
+  }
+  
+  .nav-arrows {
+    right: 20px;
+  }
+  
+  .hero-main-title,
+  .collection-year {
+    font-size: 42px;
+  }
+}
+</style>
+
+<div class="hero-stylish-wrapper">
+  <!-- Header -->
+  <header class="stylish-header">
+    <a href="/" class="stylish-logo">
+      <div class="logo-icon">🛍️</div>
+      <span class="logo-text">Stylish</span>
+    </a>
+    
+    <nav>
+      <ul class="stylish-nav">
+        <li><a href="/">Home</a></li>
+        <li><a href="/collections/all" class="active">Products</a></li>
+        <li><a href="/pages/about">About</a></li>
+        <li><a href="/pages/contact">Contact us</a></li>
+      </ul>
+    </nav>
+    
+    <div class="header-actions">
+      <button class="header-icon" aria-label="Search">🔍</button>
+      <button class="header-icon" aria-label="Cart" data-cart-trigger>
+        🛒
+        <span style="position: absolute; top: -2px; right: -2px; background: #7B2D89; color: white; font-size: 10px; font-weight: 700; width: 16px; height: 16px; border-radius: 50%; display: flex; align-items: center; justify-content: center;">{{ cart.item_count }}</span>
+      </button>
+      <button class="header-icon" aria-label="Account">👤</button>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <div class="hero-main">
+    <!-- Left Social Icons -->
+    <div class="side-nav-left">
+      <a href="#" aria-label="Instagram">📷</a>
+      <a href="#" aria-label="Twitter">🐦</a>
+      <a href="#" aria-label="Facebook">👍</a>
+    </div>
+
+    <!-- Vertical Side Text -->
+    <div class="vertical-text">
+      <span>Clutch</span>
+      <span>Tote</span>
+      <span>Hobo</span>
+    </div>
+
+    <!-- Content Grid -->
+    <div class="content-grid">
+      <!-- Left Content -->
+      <div class="hero-content">
+        <div class="trending-tag">{{ section.settings.tag | default: 'Trending' }}</div>
+        
+        <h1 class="hero-main-title">
+          <span>{{ section.settings.title_1 | default: 'Stylish Leather' }}</span>
+          <span class="bags-text">{{ section.settings.title_2 | default: 'Bags' }}</span>
+        </h1>
+        
+        <div class="collection-year">{{ section.settings.title_3 | default: 'Collections' }}</div>
+        <div class="collection-year">{{ section.settings.year | default: '2024' }}</div>
+        
+        <p class="hero-description">
+          {{ section.settings.description | default: "Browse our epic list of the different handbags and you'll find that there are more different styles than you ever dreamed of." }}
+        </p>
+        
+        <div class="price-section">
+          <div class="price-label">{{ section.settings.price | default: 'Start from $100' }}</div>
+        </div>
+        
+        <!-- Color Selection -->
+        <div class="colors-section">
+          <div class="colors-label">Colors</div>
+          <div class="color-options">
+            <label class="color-radio">
+              <input type="radio" name="color" value="army-green" checked onchange="changeProductColor('army-green')">
+              <span class="color-circle army-green"></span>
+            </label>
+            <span class="color-label">Army Green</span>
+            
+            <label class="color-radio">
+              <input type="radio" name="color" value="white" onchange="changeProductColor('white')">
+              <span class="color-circle white"></span>
+            </label>
+            <span class="color-label">White</span>
+            
+            <label class="color-radio">
+              <input type="radio" name="color" value="red" onchange="changeProductColor('red')">
+              <span class="color-circle red"></span>
+            </label>
+            <span class="color-label">Red</span>
+          </div>
+        </div>
+        
+        <a href="{{ section.settings.button_link | default: '/collections/all' }}" class="hero-cta-button">
+          {{ section.settings.button_text | default: 'Buy now' }}
+        </a>
+      </div>
+
+      <!-- Right Image Side -->
+      <div class="hero-image-side">
+        <div class="accent-circle"></div>
+        <div class="image-bg-circle color-army-green" id="bgCircle"></div>
+        
+        {% if section.settings.image %}
+          <img src="{{ section.settings.image | img_url: '800x' }}" 
+               alt="{{ section.settings.title_1 }}" 
+               class="product-image-main"
+               id="mainProductImage">
+        {% else %}
+          <img src="https://via.placeholder.com/480x600/556B2F/FFFFFF?text=Bag" 
+               alt="Product" 
+               class="product-image-main"
+               id="mainProductImage">
+        {% endif %}
+        
+        <div class="preview-mini">
+          <img src="{{ section.settings.preview_image | img_url: '200x' | default: 'https://via.placeholder.com/120/556B2F/FFFFFF?text=Preview' }}" alt="Preview">
+        </div>
+        
+        <div class="stylish-badge">
+          <div class="badge-number">02</div>
+          <div class="badge-text">Bags</div>
+        </div>
+        
+        <div class="vertical-text-right">Stylish</div>
+      </div>
+    </div>
+
+    <!-- Navigation Arrows -->
+    <div class="nav-arrows">
+      <button class="arrow-btn" aria-label="Previous">↑</button>
+      <button class="arrow-btn" aria-label="Next">↓</button>
+    </div>
+  </div>
+</div>
+
+<script>
+function changeProductColor(color) {
+  const bgCircle = document.getElementById('bgCircle');
+  const mainImage = document.getElementById('mainProductImage');
+  
+  // Remove all color classes
+  bgCircle.classList.remove('color-army-green', 'color-white', 'color-red');
+  
+  // Add new color class
+  bgCircle.classList.add('color-' + color);
+  
+  // Change image based on color (you can customize these URLs)
+  const imageUrls = {
+    'army-green': '{{ section.settings.image_army_green | img_url: "800x" | default: "https://via.placeholder.com/480x600/556B2F/FFFFFF?text=Army+Green" }}',
+    'white': '{{ section.settings.image_white | img_url: "800x" | default: "https://via.placeholder.com/480x600/FFFFFF/556B2F?text=White" }}',
+    'red': '{{ section.settings.image_red | img_url: "800x" | default: "https://via.placeholder.com/480x600/C41E3A/FFFFFF?text=Red" }}'
+  };
+  
+  mainImage.style.opacity = '0';
+  setTimeout(() => {
+    mainImage.src = imageUrls[color];
+    mainImage.style.opacity = '1';
+  }, 200);
+}
+</script>
+
+{% schema %}
+{
+  "name": "Hero Stylish",
+  "settings": [
+    {
+      "type": "text",
+      "id": "tag",
+      "label": "Tag",
+      "default": "Trending"
+    },
+    {
+      "type": "text",
+      "id": "title_1",
+      "label": "Title Line 1",
+      "default": "Stylish Leather"
+    },
+    {
+      "type": "text",
+      "id": "title_2",
+      "label": "Title Line 2",
+      "default": "Bags"
+    },
+    {
+      "type": "text",
+      "id": "title_3",
+      "label": "Title Line 3",
+      "default": "Collections"
+    },
+    {
+      "type": "text",
+      "id": "year",
+      "label": "Year",
+      "default": "2024"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description"
+    },
+    {
+      "type": "text",
+      "id": "price",
+      "label": "Price",
+      "default": "Start from $100"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Text",
+      "default": "Buy now"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button Link"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Main Product Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_army_green",
+      "label": "Army Green Version"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_white",
+      "label": "White Version"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_red",
+      "label": "Red Version"
+    },
+    {
+      "type": "image_picker",
+      "id": "preview_image",
+      "label": "Preview Mini Image"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hero Stylish"
+    }
+  ]
+}
+{% endschema %}
