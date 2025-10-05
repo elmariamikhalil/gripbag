@@ -1,181 +1,43 @@
 {
   "sections": {
-    "hero_banner": {
-      "type": "hero",
+    "main": {
+      "type": "rich-text",
       "settings": {
-        "height": "large",
-        "background_color": "#f0f9ff",
-        "subtitle": "Elevate Your Senses with Our",
-        "title": "Perfumes",
-        "description": "<p>Welcome to Perfume House, where artistry meets scent. We are a family-owned business that specializes in creating exquisite fragrances inspired by the beauty and diversity of the natural world. Each one of our perfumes is a journey in a bottle, and we can't wait for you to embark on this olfactory adventure with us.</p>",
-        "button_label": "Shop Now",
-        "button_link": "/collections/all",
-        "show_price": true,
-        "price_text": "Starting from",
-        "price": "$45.00"
-      }
-    },
-    "partners": {
-      "type": "multicolumn",
+        "desktop_content_position": "center",
+        "content_alignment": "center",
+        "color_scheme": "background-1",
+        "full_width": true,
+        "padding_top": 40,
+        "padding_bottom": 52
+      },
       "blocks": {
-        "partner_1": {
-          "type": "column",
+        "heading": {
+          "type": "heading",
           "settings": {
-            "title": "Amazon",
-            "image": "",
-            "icon": "🏪"
+            "heading": "Welcome to {{ shop.name }}",
+            "heading_size": "h1"
           }
         },
-        "partner_2": {
-          "type": "column",
+        "text": {
+          "type": "text",
           "settings": {
-            "title": "Fila",
-            "image": "",
-            "icon": "👟"
+            "text": "<p>Start customizing your homepage</p>"
           }
         },
-        "partner_3": {
-          "type": "column",
+        "button": {
+          "type": "button",
           "settings": {
-            "title": "Spotify",
-            "image": "",
-            "icon": "🎵"
-          }
-        },
-        "partner_4": {
-          "type": "column",
-          "settings": {
-            "title": "PayPal",
-            "image": "",
-            "icon": "💳"
-          }
-        },
-        "partner_5": {
-          "type": "column",
-          "settings": {
-            "title": "Slack",
-            "image": "",
-            "icon": "💬"
-          }
-        },
-        "partner_6": {
-          "type": "column",
-          "settings": {
-            "title": "Visa",
-            "image": "",
-            "icon": "💳"
+            "button_label": "Shop Now",
+            "button_link": "shopify://collections/all",
+            "button_style_secondary": false,
+            "button_label_2": "",
+            "button_link_2": "",
+            "button_style_secondary_2": false
           }
         }
       },
-      "block_order": [
-        "partner_1",
-        "partner_2",
-        "partner_3",
-        "partner_4",
-        "partner_5",
-        "partner_6"
-      ],
-      "settings": {
-        "title": "Our Permanent Partners",
-        "subtitle": "We started with most popular trademarks. In the world, give you all conveniences in the shipment.",
-        "columns_desktop": 3,
-        "background_color": "#ffffff"
-      }
-    },
-    "featured_product": {
-      "type": "image-with-text",
-      "settings": {
-        "layout": "image_first",
-        "tag": "03",
-        "heading": "Featured Product",
-        "subheading": "EAU DE COLOGNE",
-        "text": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>",
-        "show_features": true,
-        "feature_1": "Dermatologically tested",
-        "feature_2": "Long-lasting effect and light scent",
-        "feature_3": "Fresh, musky, clean, pure scents",
-        "feature_4": "Fresh, musky, clean, pure scents",
-        "button_label": "See More",
-        "button_link": "/collections/all",
-        "background_color": "#f0f9ff"
-      }
-    },
-    "about_us": {
-      "type": "image-with-text",
-      "settings": {
-        "layout": "text_first",
-        "tag": "04",
-        "heading": "About Us",
-        "subheading": "Our Story",
-        "text": "<p>Founded in 2009, Green Blends the celebration of a quest to create perfumes that touch hearts and awaken memories. Our journey is marked by an unwavering commitment to excellence.</p>",
-        "show_features": false,
-        "button_label": "See More",
-        "button_link": "/pages/about",
-        "background_color": "#ffffff"
-      }
-    },
-    "why_choose_us": {
-      "type": "multicolumn",
-      "blocks": {
-        "reason_1": {
-          "type": "column",
-          "settings": {
-            "icon": "💡",
-            "title": "Crafted with Passion",
-            "text": "<p>Our perfumes carry 100% organic and chemical free scents. Each scent is cultivated with love, care, ensuring the highest quality and depth.</p>"
-          }
-        },
-        "reason_2": {
-          "type": "column",
-          "settings": {
-            "icon": "🌿",
-            "title": "Natural Ingredients",
-            "text": "<p>We believe in the power of nature and imagination. Our perfumes are a testament to the authenticity and beauty of our scents.</p>"
-          }
-        },
-        "reason_3": {
-          "type": "column",
-          "settings": {
-            "icon": "♻️",
-            "title": "Sustainability",
-            "text": "<p>At Green Blends, we are dedicated to minimizing our impact. Our products are crafted with eco-friendly practices hard to earth.</p>"
-          }
-        }
-      },
-      "block_order": ["reason_1", "reason_2", "reason_3"],
-      "settings": {
-        "title": "Why Choose Us",
-        "subtitle": "We use high-quality ingredients, ethically source essential oils, and employ precise extraction methods. Our unique scent compositions, attention to detail, and commitment to safety define our brand.",
-        "columns_desktop": 3,
-        "background_color": "#f0f9ff"
-      }
-    },
-    "featured_collection": {
-      "type": "featured-collection",
-      "settings": {
-        "heading": "Our Products",
-        "subheading": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim.",
-        "products_to_show": 6,
-        "show_view_all": true,
-        "background_color": "#ffffff"
-      }
-    },
-    "newsletter": {
-      "type": "newsletter",
-      "settings": {
-        "heading": "Get Discount <span style='color: #00D4FF'>20%</span> off",
-        "subheading": "for the first transaction",
-        "background_color": "#f0f9ff"
-      }
+      "block_order": ["heading", "text", "button"]
     }
   },
-  "order": [
-    "hero_banner",
-    "partners",
-    "featured_product",
-    "about_us",
-    "why_choose_us",
-    "featured_collection",
-    "newsletter"
-  ]
+  "order": ["main"]
 }
