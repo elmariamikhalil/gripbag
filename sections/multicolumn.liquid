@@ -1,0 +1,241 @@
+<style>
+  .multicolumn-{{ section.id }} {
+    padding: 80px 0;
+    background: {{ section.settings.background_color }};
+  }
+
+  .multicolumn-header {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto 60px;
+  }
+
+  .columns-grid {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 40px;
+    display: grid;
+    grid-template-columns: repeat({{ section.settings.columns_desktop }}, 1fr);
+    gap: 40px;
+  }
+
+  .column-item {
+    text-align: center;
+    padding: 40px 30px;
+    border-radius: var(--border-radius);
+    background: white;
+    border: 1px solid #e5e7eb;
+    transition: var(--transition);
+  }
+
+  .column-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    border-color: var(--color-primary);
+  }
+
+  .column-icon {
+    font-size: 48px;
+    margin-bottom: 20px;
+    display: inline-block;
+  }
+
+  .column-image {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 20px;
+    border-radius: 50%;
+    overflow: hidden;
+    background: var(--color-light-bg);
+  }
+
+  .column-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .column-title {
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 12px;
+    color: var(--color-dark);
+  }
+
+  .column-text {
+    font-size: 15px;
+    line-height: 1.7;
+    color: var(--color-gray);
+  }
+
+  @media (max-width: 968px) {
+    .columns-grid {
+      grid-template-columns: 1fr;
+      gap: 25px;
+      padding: 0 20px;
+    }
+
+    .multicolumn-{{ section.id }} {
+      padding: 60px 0;
+    }
+
+    .column-item {
+      padding: 30px 20px;
+    }
+  }
+
+  @media (min-width: 769px) and (max-width: 968px) {
+    .columns-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+</style>
+
+<section class="multicolumn-{{ section.id }}">
+  <div class="container">
+    {% if section.settings.title != blank %}
+      <div class="multicolumn-header">
+        <h2 class="section-heading">{{ section.settings.title }}</h2>
+        {% if section.settings.subtitle != blank %}
+          <p class="section-subheading">{{ section.settings.subtitle }}</p>
+        {% endif %}
+      </div>
+    {% endif %}
+
+    <div class="columns-grid">
+      {% for block in section.blocks %}
+        <div class="column-item" {{ block.shopify_attributes }}>
+          {% if block.settings.image != blank %}
+            <div class="column-image">
+              <img src="{{ block.settings.image | img_url: '200x' }}" alt="{{ block.settings.title }}" loading="lazy">
+            </div>
+          {% elsif block.settings.icon != blank %}
+            <div class="column-icon">{{ block.settings.icon }}</div>
+          {% endif %}
+
+          {% if block.settings.title != blank %}
+            <h3 class="column-title">{{ block.settings.title }}</h3>
+          {% endif %}
+
+          {% if block.settings.text != blank %}
+            <div class="column-text">{{ block.settings.text }}</div>
+          {% endif %}
+
+          {% if block.settings.button_label != blank %}
+            <a href="{{ block.settings.button_link }}" class="btn btn-secondary" style="margin-top: 20px; display: inline-block; padding: 12px 30px; font-size: 14px;">
+              {{ block.settings.button_label }}
+            </a>
+          {% endif %}
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Multicolumn",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Why Choose Us"
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "Subheading",
+      "default": "Discover what makes us different"
+    },
+    {
+      "type": "range",
+      "id": "columns_desktop",
+      "label": "Number of columns on desktop",
+      "min": 2,
+      "max": 4,
+      "step": 1,
+      "default": 3
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#ffffff"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "column",
+      "name": "Column",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "icon",
+          "label": "Icon (emoji or symbol)",
+          "default": "⭐",
+          "info": "Only shown if no image is selected"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Heading",
+          "default": "Feature Title"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Description",
+          "default": "<p>Share information about your brand with your customers.</p>"
+        },
+        {
+          "type": "text",
+          "id": "button_label",
+          "label": "Button label"
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "Button link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Multicolumn",
+      "blocks": [
+        {
+          "type": "column",
+          "settings": {
+            "icon": "🚚",
+            "title": "Free Shipping",
+            "text": "<p>On orders over $50</p>"
+          }
+        },
+        {
+          "type": "column",
+          "settings": {
+            "icon": "💎",
+            "title": "Premium Quality",
+            "text": "<p>Crafted with the finest materials</p>"
+          }
+        },
+        {
+          "type": "column",
+          "settings": {
+            "icon": "🔒",
+            "title": "Secure Closure",
+            "text": "<p>Revolutionary magnetic system</p>"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

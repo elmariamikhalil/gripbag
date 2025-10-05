@@ -1,0 +1,285 @@
+<style>
+  .image-text-{{ section.id }} {
+    padding: 80px 0;
+    background: {{ section.settings.background_color }};
+  }
+
+  .image-text-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 40px;
+    display: grid;
+    grid-template-columns: {% if section.settings.layout == 'image_first' %}1fr 1fr{% else %}1fr 1fr{% endif %};
+    gap: 60px;
+    align-items: center;
+  }
+
+  {% if section.settings.layout == 'text_first' %}
+    .image-text-container .text-content {
+      order: 1;
+    }
+    .image-text-container .image-content {
+      order: 2;
+    }
+  {% endif %}
+
+  .text-content {
+    max-width: 600px;
+    {% if section.settings.layout == 'text_first' %}
+      margin-left: auto;
+    {% endif %}
+  }
+
+  .section-tag {
+    display: inline-block;
+    padding: 8px 20px;
+    background: rgba(0, 212, 255, 0.1);
+    color: var(--color-primary);
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 20px;
+  }
+
+  .image-text-title {
+    font-size: clamp(32px, 4vw, 48px);
+    font-weight: 800;
+    margin-bottom: 20px;
+    color: var(--color-dark);
+    line-height: 1.2;
+    letter-spacing: -1px;
+  }
+
+  .image-text-description {
+    font-size: 17px;
+    line-height: 1.8;
+    color: var(--color-gray);
+    margin-bottom: 30px;
+  }
+
+  .feature-list {
+    list-style: none;
+    margin-bottom: 30px;
+  }
+
+  .feature-list li {
+    padding: 12px 0;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 16px;
+    color: var(--color-dark);
+  }
+
+  .feature-list li::before {
+    content: '✓';
+    width: 24px;
+    height: 24px;
+    background: var(--color-primary);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    flex-shrink: 0;
+  }
+
+  .image-content {
+    position: relative;
+  }
+
+  .image-wrapper {
+    border-radius: 30px;
+    overflow: hidden;
+    background: linear-gradient(135deg, rgba(0, 212, 255, 0.1), rgba(0, 153, 255, 0.1));
+    padding: 30px;
+  }
+
+  .image-wrapper img {
+    width: 100%;
+    height: auto;
+    border-radius: 20px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+  }
+
+  @media (max-width: 968px) {
+    .image-text-container {
+      grid-template-columns: 1fr;
+      gap: 40px;
+      padding: 0 20px;
+    }
+
+    .image-text-{{ section.id }} {
+      padding: 60px 0;
+    }
+
+    .text-content {
+      max-width: 100%;
+    }
+
+    {% if section.settings.layout == 'text_first' %}
+      .image-text-container .text-content {
+        order: 2;
+      }
+      .image-text-container .image-content {
+        order: 1;
+      }
+    {% endif %}
+  }
+</style>
+
+<section class="image-text-{{ section.id }}">
+  <div class="image-text-container">
+    <div class="text-content">
+      {% if section.settings.tag != blank %}
+        <span class="section-tag">{{ section.settings.tag }}</span>
+      {% endif %}
+
+      {% if section.settings.heading != blank %}
+        <h2 class="image-text-title">{{ section.settings.heading }}</h2>
+      {% endif %}
+
+      {% if section.settings.text != blank %}
+        <p class="image-text-description">{{ section.settings.text }}</p>
+      {% endif %}
+
+      {% if section.settings.show_features %}
+        <ul class="feature-list">
+          {% if section.settings.feature_1 != blank %}
+            <li>{{ section.settings.feature_1 }}</li>
+          {% endif %}
+          {% if section.settings.feature_2 != blank %}
+            <li>{{ section.settings.feature_2 }}</li>
+          {% endif %}
+          {% if section.settings.feature_3 != blank %}
+            <li>{{ section.settings.feature_3 }}</li>
+          {% endif %}
+          {% if section.settings.feature_4 != blank %}
+            <li>{{ section.settings.feature_4 }}</li>
+          {% endif %}
+        </ul>
+      {% endif %}
+
+      {% if section.settings.button_label != blank %}
+        <a href="{{ section.settings.button_link }}" class="btn btn-primary">
+          {{ section.settings.button_label }}
+        </a>
+      {% endif %}
+    </div>
+
+    <div class="image-content">
+      <div class="image-wrapper">
+        {% if section.settings.image != blank %}
+          <img src="{{ section.settings.image | img_url: '800x' }}" alt="{{ section.settings.heading }}" loading="lazy">
+        {% else %}
+          <div style="background: #e5e7eb; aspect-ratio: 4/3; border-radius: 20px; display: flex; align-items: center; justify-content: center; color: #9ca3af;">
+            Add an image
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Image with Text",
+  "settings": [
+    {
+      "type": "select",
+      "id": "layout",
+      "label": "Layout",
+      "options": [
+        {
+          "value": "image_first",
+          "label": "Image first"
+        },
+        {
+          "value": "text_first",
+          "label": "Text first"
+        }
+      ],
+      "default": "image_first"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "tag",
+      "label": "Tag",
+      "default": "About Us"
+    },
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Crafted with Precision"
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Text",
+      "default": "<p>Every detail matters when it comes to creating the perfect gym bag. Our magnetic closure system is the result of years of research and development.</p>"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_features",
+      "label": "Show feature list",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "feature_1",
+      "label": "Feature 1",
+      "default": "Premium materials and craftsmanship"
+    },
+    {
+      "type": "text",
+      "id": "feature_2",
+      "label": "Feature 2",
+      "default": "Revolutionary magnetic closure"
+    },
+    {
+      "type": "text",
+      "id": "feature_3",
+      "label": "Feature 3",
+      "default": "Water-resistant exterior"
+    },
+    {
+      "type": "text",
+      "id": "feature_4",
+      "label": "Feature 4",
+      "default": "Multiple compartments for organization"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "Learn More"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link",
+      "default": "/pages/about"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#f9fafb"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Image with Text"
+    }
+  ]
+}
+{% endschema %}

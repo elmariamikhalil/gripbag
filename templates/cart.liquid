@@ -1,0 +1,36 @@
+<div style="max-width: 1200px; margin: 0 auto; padding: 100px 50px;">
+  <h1 style="font-size: 48px; margin-bottom: 40px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Shopping Cart</h1>
+  
+  {% if cart.item_count > 0 %}
+    <form action="/cart" method="post">
+      <div style="background: #1a1a2e; border-radius: 20px; padding: 30px; margin-bottom: 30px;">
+        {% for item in cart.items %}
+          <div style="display: grid; grid-template-columns: 100px 1fr auto auto; gap: 20px; align-items: center; padding: 20px 0; border-bottom: 1px solid rgba(255,255,255,0.1);">
+            <img src="{{ item.image | img_url: '100x' }}" alt="{{ item.title }}" style="border-radius: 10px;">
+            <div>
+              <h3 style="font-size: 20px; margin-bottom: 5px;">{{ item.product.title }}</h3>
+              <p style="color: #aaa;">{{ item.variant.title }}</p>
+            </div>
+            <input type="number" name="updates[]" value="{{ item.quantity }}" min="0" 
+                   style="width: 80px; padding: 10px; background: #0a0a0a; color: white; border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; text-align: center;">
+            <div style="font-size: 20px; font-weight: bold; color: #667eea;">{{ item.line_price | money }}</div>
+          </div>
+        {% endfor %}
+      </div>
+      
+      <div style="display: flex; justify-content: space-between; align-items: center;">
+        <button type="submit" name="update" style="padding: 15px 30px; background: #1a1a2e; color: white; border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; cursor: pointer; font-weight: bold;">Update Cart</button>
+        <div style="text-align: right;">
+          <p style="font-size: 18px; color: #aaa; margin-bottom: 10px;">Subtotal:</p>
+          <p style="font-size: 36px; font-weight: bold; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">{{ cart.total_price | money }}</p>
+          <button type="submit" name="checkout" style="margin-top: 20px; padding: 20px 50px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; border-radius: 50px; cursor: pointer; font-weight: bold; text-transform: uppercase; letter-spacing: 1px;">Checkout</button>
+        </div>
+      </div>
+    </form>
+  {% else %}
+    <div style="text-align: center; padding: 100px 20px;">
+      <p style="font-size: 24px; color: #aaa; margin-bottom: 30px;">Your cart is empty</p>
+      <a href="/collections/all" class="cta-button">Continue Shopping</a>
+    </div>
+  {% endif %}
+</div>

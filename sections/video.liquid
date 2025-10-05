@@ -1,0 +1,202 @@
+<style>
+  .video-section-{{ section.id }} {
+    padding: 80px 0;
+    background: {{ section.settings.background_color }};
+  }
+
+  .video-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 40px;
+  }
+
+  .video-header {
+    text-align: center;
+    margin-bottom: 50px;
+  }
+
+  .video-wrapper {
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9 aspect ratio */
+    height: 0;
+    overflow: hidden;
+    border-radius: 30px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+  }
+
+  .video-wrapper iframe,
+  .video-wrapper video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+
+  .video-placeholder {
+    position: relative;
+    background: #000;
+    cursor: pointer;
+    overflow: hidden;
+  }
+
+  .video-placeholder img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.7;
+    transition: var(--transition);
+  }
+
+  .video-placeholder:hover img {
+    opacity: 0.9;
+    transform: scale(1.05);
+  }
+
+  .play-button {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80px;
+    height: 80px;
+    background: var(--color-primary);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    color: white;
+    transition: var(--transition);
+    box-shadow: 0 10px 30px rgba(0, 212, 255, 0.4);
+  }
+
+  .video-placeholder:hover .play-button {
+    transform: translate(-50%, -50%) scale(1.1);
+    box-shadow: 0 15px 40px rgba(0, 212, 255, 0.6);
+  }
+
+  .video-description {
+    text-align: center;
+    margin-top: 30px;
+    font-size: 16px;
+    color: var(--color-gray);
+    line-height: 1.7;
+  }
+
+  @media (max-width: 768px) {
+    .video-container {
+      padding: 0 20px;
+    }
+
+    .video-section-{{ section.id }} {
+      padding: 60px 0;
+    }
+
+    .video-wrapper {
+      border-radius: 20px;
+    }
+
+    .play-button {
+      width: 60px;
+      height: 60px;
+      font-size: 22px;
+    }
+  }
+</style>
+
+<section class="video-section-{{ section.id }}">
+  <div class="video-container">
+    {% if section.settings.heading != blank %}
+      <div class="video-header">
+        <h2 class="section-heading">{{ section.settings.heading }}</h2>
+        {% if section.settings.subheading != blank %}
+          <p class="section-subheading">{{ section.settings.subheading }}</p>
+        {% endif %}
+      </div>
+    {% endif %}
+
+    <div class="video-wrapper">
+      {% if section.settings.video_url contains 'youtube.com' or section.settings.video_url contains 'youtu.be' %}
+        {% assign video_id = section.settings.video_url | split: 'v=' | last | split: '/' | last | split: '&' | first %}
+        <div class="video-placeholder" onclick="this.innerHTML='<iframe src=\'https://www.youtube.com/embed/{{ video_id }}?autoplay=1\' allow=\'autoplay; encrypted-media\' allowfullscreen></iframe>'">
+          <img src="https://img.youtube.com/vi/{{ video_id }}/maxresdefault.jpg" alt="{{ section.settings.heading }}">
+          <div class="play-button">▶</div>
+        </div>
+      {% elsif section.settings.video_url contains 'vimeo.com' %}
+        {% assign video_id = section.settings.video_url | split: '/' | last %}
+        <iframe src="https://player.vimeo.com/video/{{ video_id }}" allowfullscreen></iframe>
+      {% elsif section.settings.video_file != blank %}
+        <video controls poster="{{ section.settings.cover_image | img_url: '1200x' }}">
+          <source src="{{ section.settings.video_file }}" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+      {% else %}
+        <div style="background: #e5e7eb; position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; color: #9ca3af;">
+          Add a video URL or upload a video file
+        </div>
+      {% endif %}
+    </div>
+
+    {% if section.settings.description != blank %}
+      <div class="video-description">
+        {{ section.settings.description }}
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Video",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "See It In Action"
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Watch how our magnetic gym bags work"
+    },
+    {
+      "type": "url",
+      "id": "video_url",
+      "label": "Video URL",
+      "info": "Paste a YouTube or Vimeo URL"
+    },
+    {
+      "type": "video",
+      "id": "video_file",
+      "label": "Or upload a video file",
+      "info": "Used if no video URL is provided"
+    },
+    {
+      "type": "image_picker",
+      "id": "cover_image",
+      "label": "Cover image",
+      "info": "Shown before video plays"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#f9fafb"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Video"
+    }
+  ]
+}
+{% endschema %}

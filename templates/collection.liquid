@@ -1,0 +1,85 @@
+<div style="max-width: 1400px; margin: 0 auto; padding: 100px 50px;">
+  
+  <!-- Collection Header -->
+  <div style="text-align: center; margin-bottom: 80px;">
+    <h1 style="font-size: 56px; font-weight: 900; margin-bottom: 20px; background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+      {{ collection.title }}
+    </h1>
+    {% if collection.description != blank %}
+      <p style="font-size: 20px; color: #aaa; max-width: 700px; margin: 0 auto;">
+        {{ collection.description }}
+      </p>
+    {% endif %}
+  </div>
+  
+  <!-- Product Grid -->
+  <div class="product-grid">
+    {% for product in collection.products %}
+      <div class="product-card">
+        {% if product.featured_image %}
+          <a href="{{ product.url }}">
+            <img src="{{ product.featured_image | img_url: '600x' }}" 
+                 alt="{{ product.title }}" 
+                 class="product-image">
+          </a>
+        {% else %}
+          <div class="product-image" style="display: flex; align-items: center; justify-content: center; color: #666;">
+            No Image Available
+          </div>
+        {% endif %}
+        
+        <div class="product-info">
+          <a href="{{ product.url }}" class="product-title">{{ product.title }}</a>
+          
+          <div class="product-price">
+            {% if product.compare_at_price > product.price %}
+              <span style="text-decoration: line-through; color: #666; font-size: 18px; margin-right: 10px;">
+                {{ product.compare_at_price | money }}
+              </span>
+            {% endif %}
+            {{ product.price | money }}
+          </div>
+          
+          <form action="/cart/add" method="post">
+            <input type="hidden" name="id" value="{{ product.variants.first.id }}">
+            <button type="submit" class="add-to-cart-btn" {% unless product.available %}disabled{% endunless %}>
+              {% if product.available %}Add to Cart{% else %}Sold Out{% endif %}
+            </button>
+          </form>
+        </div>
+      </div>
+    {% else %}
+      <div style="grid-column: 1/-1; text-align: center; padding: 60px; color: #aaa;">
+        <p style="font-size: 24px;">No products in this collection yet.</p>
+      </div>
+    {% endfor %}
+  </div>
+  
+  <!-- Pagination -->
+  {% if paginate.pages > 1 %}
+    <div style="display: flex; justify-content: center; gap: 15px; margin-top: 80px;">
+      {% if paginate.previous %}
+        <a href="{{ paginate.previous.url }}" 
+           style="padding: 12px 24px; background: #1a1a2e; color: white; text-decoration: none; border-radius: 10px; border: 1px solid rgba(255,255,255,0.1); transition: all 0.3s;">
+          ← Previous
+        </a>
+      {% endif %}
+      
+      <span style="padding: 12px 24px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border-radius: 10px; font-weight: bold;">
+        Page {{ paginate.current_page }} of {{ paginate.pages }}
+      </span>
+      
+      {% if paginate.next %}
+        <a href="{{ paginate.next.url }}" 
+           style="padding: 12px 24px; background: #1a1a2e; color: white; text-decoration: none; border-radius: 10px; border: 1px solid rgba(255,255,255,0.1); transition: all 0.3s;">
+          Next →
+        </a>
+      {% endif %}
+    </div>
+  {% endif %}
+  
+</div>
+
+{% paginate collection.products by 12 %}
+  <!-- Pagination wrapper -->
+{% endpaginate %}

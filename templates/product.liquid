@@ -1,0 +1,97 @@
+<div style="max-width: 1400px; margin: 0 auto; padding: 100px 50px;">
+  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start;">
+    
+    <!-- Product Images -->
+    <div>
+      <div style="position: sticky; top: 100px;">
+        {% if product.images.size > 0 %}
+          <img src="{{ product.featured_image | img_url: '800x' }}" 
+               alt="{{ product.title }}" 
+               id="main-product-image"
+               style="width: 100%; border-radius: 20px; background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1)); margin-bottom: 20px;">
+          
+          {% if product.images.size > 1 %}
+            <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px;">
+              {% for image in product.images limit: 4 %}
+                <img src="{{ image | img_url: '200x' }}" 
+                     alt="{{ product.title }}"
+                     onclick="document.getElementById('main-product-image').src='{{ image | img_url: '800x' }}'"
+                     style="width: 100%; border-radius: 10px; cursor: pointer; border: 2px solid transparent; transition: all 0.3s;"
+                     onmouseover="this.style.borderColor='#667eea'"
+                     onmouseout="this.style.borderColor='transparent'">
+              {% endfor %}
+            </div>
+          {% endif %}
+        {% endif %}
+      </div>
+    </div>
+    
+    <!-- Product Info -->
+    <div style="color: white;">
+      <h1 style="font-size: 48px; margin-bottom: 20px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+        {{ product.title }}
+      </h1>
+      
+      <div style="font-size: 36px; font-weight: bold; margin-bottom: 30px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+        {{ product.price | money }}
+      </div>
+      
+      <div style="color: #aaa; font-size: 18px; line-height: 1.8; margin-bottom: 40px;">
+        {{ product.description }}
+      </div>
+      
+      <form action="/cart/add" method="post" style="margin-bottom: 40px;">
+        {% unless product.has_only_default_variant %}
+          <div style="margin-bottom: 25px;">
+            <label style="display: block; margin-bottom: 10px; font-size: 18px; font-weight: 600;">Select {{ product.options.first.name }}:</label>
+            <select name="id" style="width: 100%; padding: 15px; border-radius: 10px; background: #1a1a2e; color: white; border: 1px solid rgba(255,255,255,0.1); font-size: 16px;">
+              {% for variant in product.variants %}
+                <option value="{{ variant.id }}" {% unless variant.available %}disabled{% endunless %}>
+                  {{ variant.title }} - {{ variant.price | money }}
+                  {% unless variant.available %} (Sold Out){% endunless %}
+                </option>
+              {% endfor %}
+            </select>
+          </div>
+        {% else %}
+          <input type="hidden" name="id" value="{{ product.variants.first.id }}">
+        {% endunless %}
+        
+        <div style="display: flex; gap: 15px; align-items: center; margin-bottom: 25px;">
+          <label style="font-size: 18px; font-weight: 600;">Quantity:</label>
+          <input type="number" name="quantity" value="1" min="1" 
+                 style="width: 80px; padding: 15px; border-radius: 10px; background: #1a1a2e; color: white; border: 1px solid rgba(255,255,255,0.1); font-size: 16px; text-align: center;">
+        </div>
+        
+        <button type="submit" 
+                {% unless product.available %}disabled{% endunless %}
+                style="width: 100%; padding: 20px; font-size: 20px; font-weight: bold; border: none; border-radius: 50px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; transition: all 0.3s;"
+                onmouseover="this.style.transform='translateY(-3px)'; this.style.boxShadow='0 10px 30px rgba(102, 126, 234, 0.5)'"
+                onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none'">
+          {% if product.available %}Add to Cart{% else %}Sold Out{% endif %}
+        </button>
+      </form>
+      
+      <!-- Product Features -->
+      <div style="background: #1a1a2e; padding: 30px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.05);">
+        <h3 style="font-size: 24px; margin-bottom: 20px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+          Features
+        </h3>
+        <ul style="list-style: none; padding: 0;">
+          <li style="padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.05);">✨ Revolutionary Magnetic Closure</li>
+          <li style="padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.05);">💪 Premium Durable Materials</li>
+          <li style="padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.05);">🎒 Multiple Compartments</li>
+          <li style="padding: 10px 0;">🔒 Secure & Easy Access</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  @media (max-width: 968px) {
+    div[style*="grid-template-columns: 1fr 1fr"] {
+      grid-template-columns: 1fr !important;
+    }
+  }
+</style>
