@@ -1,43 +1,16 @@
 {
   "sections": {
-    "main": {
-      "type": "rich-text",
+    "hero": {
+      "type": "hero",
+      "settings": {}
+    },
+    "featured": {
+      "type": "featured-collection",
       "settings": {
-        "desktop_content_position": "center",
-        "content_alignment": "center",
-        "color_scheme": "background-1",
-        "full_width": true,
-        "padding_top": 40,
-        "padding_bottom": 52
-      },
-      "blocks": {
-        "heading": {
-          "type": "heading",
-          "settings": {
-            "heading": "Welcome to {{ shop.name }}",
-            "heading_size": "h1"
-          }
-        },
-        "text": {
-          "type": "text",
-          "settings": {
-            "text": "<p>Start customizing your homepage</p>"
-          }
-        },
-        "button": {
-          "type": "button",
-          "settings": {
-            "button_label": "Shop Now",
-            "button_link": "shopify://collections/all",
-            "button_style_secondary": false,
-            "button_label_2": "",
-            "button_link_2": "",
-            "button_style_secondary_2": false
-          }
-        }
-      },
-      "block_order": ["heading", "text", "button"]
+        "heading": "Featured Products",
+        "collection": ""
+      }
     }
   },
-  "order": ["main"]
+  "order": ["hero", "featured"]
 }
