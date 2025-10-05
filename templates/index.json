@@ -1,0 +1,35 @@
+{
+  "sections": {
+    "hero": {
+      "type": "hero",
+      "settings": {}
+    },
+    "featured_collection": {
+      "type": "featured-collection",
+      "settings": {
+        "heading": "Featured Products",
+        "subheading": "Discover our magnetic gym bags"
+      }
+    },
+    "image_with_text": {
+      "type": "image-with-text",
+      "settings": {}
+    },
+    "multicolumn": {
+      "type": "multicolumn",
+      "blocks": {
+        "column_1": {
+          "type": "column"
+        },
+        "column_2": {
+          "type": "column"
+        },
+        "column_3": {
+          "type": "column"
+        }
+      },
+      "block_order": ["column_1", "column_2", "column_3"]
+    }
+  },
+  "order": ["hero", "featured_collection", "image_with_text", "multicolumn"]
+}
