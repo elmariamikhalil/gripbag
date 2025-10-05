@@ -2,27 +2,8 @@
   "sections": {
     "hero_stylish": {
       "type": "hero-stylish",
-      "settings": {
-        "tag": "Trending",
-        "title_line1": "Stylish Leather",
-        "title_line2": "Bags",
-        "title_line3": "Collections 2024",
-        "description": "Browse our epic list of the different handbags and you'll find that there are more different styles than you ever dreamed of.",
-        "price": "Start from $100",
-        "button_text": "Buy now",
-        "button_link": "shopify://collections/all"
-      }
-    },
-    "featured_collection": {
-      "type": "featured-collection",
-      "settings": {
-        "heading": "Featured Products",
-        "subheading": "Discover our latest collection",
-        "products_to_show": 6,
-        "show_view_all": true,
-        "background_color": "#F5F5F0"
-      }
+      "settings": {}
     }
   },
-  "order": ["hero_stylish", "featured_collection"]
+  "order": ["hero_stylish"]
 }
