@@ -120,52 +120,52 @@
 /* Left Side Navigation */
 .side-nav-left {
   position: absolute;
-  left: 30px;
+  left: 20px;
   top: 50%;
   transform: translateY(-50%);
   display: flex;
   flex-direction: column;
-  gap: 35px;
+  gap: 28px;
   z-index: 10;
 }
 
 .side-nav-left a {
   color: #1a1a1a;
-  font-size: 20px;
+  font-size: 18px;
   transition: all 0.3s;
   text-decoration: none;
 }
 
 .side-nav-left a:hover {
   color: #7B2D89;
-  transform: translateX(-5px);
+  transform: translateX(-3px);
 }
 
 /* Vertical Side Text */
 .vertical-text {
   position: absolute;
-  left: 100px;
+  left: 85px;
   top: 50%;
-  transform: translateY(-50%);
+  transform: translateY(-50%) rotate(180deg);
   writing-mode: vertical-rl;
-  transform: rotate(180deg);
   display: flex;
   flex-direction: column;
-  gap: 60px;
-  font-size: 15px;
-  font-weight: 500;
-  color: #666;
-  letter-spacing: 2px;
+  gap: 70px;
+  font-size: 14px;
+  font-weight: 400;
+  color: #999;
+  letter-spacing: 1px;
 }
 
 .vertical-text span {
   cursor: pointer;
   transition: all 0.3s;
+  text-transform: capitalize;
 }
 
 .vertical-text span:hover {
-  color: #7B2D89;
-  font-weight: 600;
+  color: #1a1a1a;
+  font-weight: 500;
 }
 
 /* Content Grid */
@@ -196,12 +196,13 @@
 }
 
 .hero-main-title {
-  font-size: 68px;
+  font-size: 72px;
   font-weight: 900;
-  line-height: 1.1;
+  line-height: 0.95;
   color: #1a1a1a;
-  margin-bottom: 15px;
-  letter-spacing: -2px;
+  margin-bottom: 0;
+  letter-spacing: -3px;
+  text-transform: capitalize;
 }
 
 .hero-main-title .highlight {
@@ -212,15 +213,16 @@
 .hero-main-title .bags-text {
   display: block;
   color: #1a1a1a;
-  font-weight: 800;
+  font-weight: 900;
 }
 
 .collection-year {
-  font-size: 68px;
+  font-size: 72px;
   font-weight: 900;
   color: #1a1a1a;
-  margin-bottom: 30px;
-  letter-spacing: -2px;
+  margin-bottom: 35px;
+  letter-spacing: -3px;
+  line-height: 0.95;
 }
 
 .hero-description {
@@ -233,37 +235,40 @@
 }
 
 .price-section {
-  margin-bottom: 30px;
+  margin-bottom: 35px;
 }
 
 .price-label {
-  font-size: 18px;
-  font-weight: 600;
+  font-size: 19px;
+  font-weight: 700;
   color: #1a1a1a;
   margin-bottom: 10px;
 }
 
 /* Color Selection */
 .colors-section {
-  margin-bottom: 35px;
+  margin-bottom: 45px;
 }
 
 .colors-label {
-  font-size: 16px;
-  font-weight: 600;
+  font-size: 17px;
+  font-weight: 700;
   color: #1a1a1a;
-  margin-bottom: 15px;
+  margin-bottom: 20px;
 }
 
 .color-options {
   display: flex;
-  gap: 18px;
+  gap: 12px;
   align-items: center;
 }
 
 .color-radio {
   position: relative;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 .color-radio input[type="radio"] {
@@ -273,10 +278,10 @@
 }
 
 .color-circle {
-  width: 28px;
-  height: 28px;
+  width: 24px;
+  height: 24px;
   border-radius: 50%;
-  border: 3px solid transparent;
+  border: 2px solid transparent;
   transition: all 0.3s;
   cursor: pointer;
   position: relative;
@@ -284,11 +289,23 @@
 
 .color-radio input[type="radio"]:checked + .color-circle {
   border-color: #1a1a1a;
-  box-shadow: 0 0 0 2px #fff, 0 0 0 4px #1a1a1a;
+  transform: scale(1.1);
+}
+
+.color-radio input[type="radio"]:checked + .color-circle::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 10px;
+  height: 10px;
+  background: #1a1a1a;
+  border-radius: 50%;
 }
 
 .color-circle.army-green {
-  background: #556B2F;
+  background: #1a1a1a;
 }
 
 .color-circle.white {
@@ -301,10 +318,10 @@
 }
 
 .color-label {
-  font-size: 14px;
-  margin-left: 8px;
-  color: #666;
+  font-size: 15px;
+  color: #1a1a1a;
   font-weight: 500;
+  margin-right: 25px;
 }
 
 /* CTA Button */
@@ -342,24 +359,24 @@
 /* Large Background Circle */
 .image-bg-circle {
   position: absolute;
-  width: 550px;
-  height: 550px;
-  background: linear-gradient(135deg, rgba(85, 107, 47, 0.12) 0%, rgba(107, 142, 35, 0.08) 100%);
+  width: 580px;
+  height: 580px;
+  background: #E8E8E0;
   border-radius: 50%;
   z-index: 1;
   transition: all 0.5s ease;
 }
 
 .image-bg-circle.color-army-green {
-  background: linear-gradient(135deg, rgba(85, 107, 47, 0.12) 0%, rgba(107, 142, 35, 0.08) 100%);
+  background: #E8E8E0;
 }
 
 .image-bg-circle.color-white {
-  background: linear-gradient(135deg, rgba(200, 200, 200, 0.12) 0%, rgba(220, 220, 220, 0.08) 100%);
+  background: #F0F0E8;
 }
 
 .image-bg-circle.color-red {
-  background: linear-gradient(135deg, rgba(196, 30, 58, 0.12) 0%, rgba(220, 50, 78, 0.08) 100%);
+  background: #E8E8E0;
 }
 
 /* Accent Circle */
